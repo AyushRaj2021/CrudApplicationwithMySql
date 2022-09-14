@@ -1,3 +1,5 @@
+using CrudApplicationwithMySql.RepositoryLayer;
+using CrudApplicationwithMySql.ServiceLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,16 @@ namespace CrudApplicationwithMySql
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            #region Dependency Injection
+            services.AddScoped<ICRudApplicationSL, CrudApplicationSL>();
+            services.AddScoped<ICrudApplicationRL, CrudApplicationRL>();
+            #endregion
+
+            #region swagger
+            services.AddSwaggerGen();
+            #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +57,12 @@ namespace CrudApplicationwithMySql
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
         }
     }

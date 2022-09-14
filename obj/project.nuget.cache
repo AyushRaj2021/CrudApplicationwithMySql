@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "MAMPgvE4Rf/syN03VWBScVn2Fb5aYgVoaEhtqH7i4+rCnz/IicdTrzS/wx7R0YOqdXBpK6vnuVbibkSaZyBTAA==",
+  "dgSpecHash": "Fxp6HtKVMOxgYUjJfAV2oz1Q2BpUCRo3O7hD9mmiRk+FQaeVn+2b5LNLoE05yWH0rfppLSxSSwItYInN/lkkTg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Ayush Raj\\source\\repos\\CrudApplicationwithMySql\\CrudApplicationwithMySql\\CrudApplicationwithMySql.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Ayush Raj\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Ayush Raj\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Ayush Raj\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\Ayush Raj\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\Ayush Raj\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\Ayush Raj\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
   "logs": []
 }
