@@ -23,6 +23,13 @@ namespace CrudApplicationwithMySql.Controllers
         [HttpPost]
         public IActionResult AddInformation()
         {
+            try 
+            { 
+            }
+            catch(Exception ex)
+            {
+
+            }
             return Ok();
         }
     }
