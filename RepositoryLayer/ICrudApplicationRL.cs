@@ -7,5 +7,6 @@ namespace CrudApplicationwithMySql.RepositoryLayer
 {
     public interface ICrudApplicationRL
     {
+        public Task<AddInformationResponse>
     }
 }

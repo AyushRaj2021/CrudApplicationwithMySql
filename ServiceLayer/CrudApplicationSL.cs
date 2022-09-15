@@ -1,4 +1,5 @@
-﻿using CrudApplicationwithMySql.RepositoryLayer;
+﻿using CrudApplicationwithMySql.CommonLayer.Model;
+using CrudApplicationwithMySql.RepositoryLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,11 @@ namespace CrudApplicationwithMySql.ServiceLayer
         public CrudApplicationSL(ICrudApplicationRL crudApplicationRL)
         {
             _crudApplicationRL = crudApplicationRL;
+        }
+
+        public Task<AddInformationResponse> AddInformation(AddInformationRequest request)
+        {
+            return ;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using CrudApplicationwithMySql.ServiceLayer;
+﻿using CrudApplicationwithMySql.CommonLayer.Model;
+using CrudApplicationwithMySql.ServiceLayer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,8 +22,9 @@ namespace CrudApplicationwithMySql.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddInformation()
+        public IActionResult AddInformation(AddInformationRequest request )
         {
+            AddInformationResponse response = new AddInformationResponse();
             try 
             { 
             }
