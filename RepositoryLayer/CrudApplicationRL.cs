@@ -23,6 +23,8 @@ namespace CrudApplicationwithMySql.RepositoryLayer
         public async Task<AddInformationResponse> AddInformation(AddInformationRequest request)
         {
             AddInformationResponse response = new AddInformationResponse();
+            response.IsSuccess = true;
+            response.Message = "Successful";
             try
             {
                 if(_mySqlConnection.State != System.Data.ConnectionState.Open)
@@ -52,7 +54,13 @@ namespace CrudApplicationwithMySql.RepositoryLayer
             }
             catch(Exception ex)
             {
-
+                response.IsSuccess = false;
+                response.Message = ex.Message;
+            }
+            finally
+            {
+                await _mySqlConnection.CloseAsync();
+                await _mySqlConnection.DisposeAsync();
             }
             return response ;
         }

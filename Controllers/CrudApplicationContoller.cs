@@ -22,17 +22,19 @@ namespace CrudApplicationwithMySql.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddInformation(AddInformationRequest request )
+        public async Task<IActionResult> AddInformationAsync(AddInformationRequest request )
         {
             AddInformationResponse response = new AddInformationResponse();
             try 
-            { 
+            {
+                response = await _crudApplicationSL.AddInformation(request);
             }
             catch(Exception ex)
             {
-
+                response.IsSuccess = false;
+                response.Message = ex.Message;
             }
-            return Ok();
+            return Ok(response);
         }
     }
 }

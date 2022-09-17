@@ -25,3 +25,6 @@ C:\Users\Ayush Raj\source\repos\CrudApplicationwithMySql\CrudApplicationwithMySq
 C:\Users\Ayush Raj\source\repos\CrudApplicationwithMySql\CrudApplicationwithMySql\obj\Debug\netcoreapp3.1\CrudApplicationwithMySql.dll
 C:\Users\Ayush Raj\source\repos\CrudApplicationwithMySql\CrudApplicationwithMySql\obj\Debug\netcoreapp3.1\CrudApplicationwithMySql.pdb
 C:\Users\Ayush Raj\source\repos\CrudApplicationwithMySql\CrudApplicationwithMySql\obj\Debug\netcoreapp3.1\CrudApplicationwithMySql.genruntimeconfig.cache
+C:\Users\Ayush Raj\source\repos\CrudApplicationwithMySql\CrudApplicationwithMySql\bin\Debug\netcoreapp3.1\MySqlConnector.dll
+C:\Users\Ayush Raj\source\repos\CrudApplicationwithMySql\CrudApplicationwithMySql\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Ayush Raj\source\repos\CrudApplicationwithMySql\CrudApplicationwithMySql\bin\Debug\netcoreapp3.1\SqlQueries.xml

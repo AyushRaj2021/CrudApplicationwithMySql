@@ -16,9 +16,40 @@ namespace CrudApplicationwithMySql.ServiceLayer
             _crudApplicationRL = crudApplicationRL;
         }
 
-        public Task<AddInformationResponse> AddInformation(AddInformationRequest request)
+        public async Task<AddInformationResponse> AddInformation(AddInformationRequest request)
         {
-            return ;
+            AddInformationResponse response = new AddInformationResponse();
+            if (String.IsNullOrEmpty(request.UserName))
+            {
+                response.IsSuccess = false;
+                response.Message = "UserName can't Null or Empty";
+                return response;
+            }
+            if (String.IsNullOrEmpty(request.EmailID))
+            {
+                response.IsSuccess = false;
+                response.Message = "EmailID can't Null or Empty";
+                return response;
+            }
+            if (String.IsNullOrEmpty(request.MobileNumber))
+            {
+                response.IsSuccess = false;
+                response.Message = "MobileNumber can't Null or Empty";
+                return response;
+            }
+            if (request.Salary<=0)
+            {
+                response.IsSuccess = false;
+                response.Message = "Salary can't less than 0";
+                return response;
+            }
+            if (String.IsNullOrEmpty(request.Gender))
+            {
+                response.IsSuccess = false;
+                response.Message = "Gender can't Null or Empty";
+                return response;
+            }
+            return await _crudApplicationRL.AddInformation(request);
         }
     }
 }
