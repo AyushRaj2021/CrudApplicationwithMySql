@@ -13,7 +13,7 @@ namespace CrudApplicationwithMySql.ServiceLayer
         public readonly ICrudApplicationRL _crudApplicationRL;
         public readonly string EmailRegex = @"^[0-9a-zA-Z]+([._+-][0-9a-zA-Z]+)*@[0-9a-zA-Z]+.[a-zA-Z]{2,4}([.][a-zA-Z]{2,3})?$";
         public readonly string MobileRegex = @"([1-9]{1}[0-9]{9})$";
-        public readonly string GenderRegex = @"^(?:m|M|male|Male|f|F|female|Female)$";
+        public readonly string GenderRegex = @"^(?:m|male|f|female)$";
 
         public CrudApplicationSL(ICrudApplicationRL crudApplicationRL)
         {
@@ -22,7 +22,8 @@ namespace CrudApplicationwithMySql.ServiceLayer
 
         public async Task<AddInformationResponse> AddInformation(AddInformationRequest request)
         {
-            AddInformationResponse response = new AddInformationResponse();
+            #region earlier validation
+            /*AddInformationResponse response = new AddInformationResponse();
             if (String.IsNullOrEmpty(request.UserName))
             {
                 response.IsSuccess = false;
@@ -83,8 +84,8 @@ namespace CrudApplicationwithMySql.ServiceLayer
                     response.Message = "Gender not correct format.";
                     return response;
                 }
-            }
-
+            }*/
+            #endregion
             return await _crudApplicationRL.AddInformation(request);
         }
     }
