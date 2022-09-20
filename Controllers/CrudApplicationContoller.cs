@@ -28,6 +28,7 @@ namespace CrudApplicationwithMySql.Controllers
             try 
             {
                 response = await _crudApplicationSL.AddInformation(request);
+
             }
             catch(Exception ex)
             {
