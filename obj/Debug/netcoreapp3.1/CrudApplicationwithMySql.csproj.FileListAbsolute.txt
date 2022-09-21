@@ -26,3 +26,4 @@ C:\Users\Ayush Raj\source\repos\CrudApplicationwithMySql\CrudApplicationwithMySq
 C:\Users\Ayush Raj\source\repos\CrudApplicationwithMySql\CrudApplicationwithMySql\bin\Debug\netcoreapp3.1\MySqlConnector.dll
 C:\Users\Ayush Raj\source\repos\CrudApplicationwithMySql\CrudApplicationwithMySql\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
 C:\Users\Ayush Raj\source\repos\CrudApplicationwithMySql\CrudApplicationwithMySql\bin\Debug\netcoreapp3.1\SqlQueries.xml
+C:\Users\Ayush Raj\source\repos\CrudApplicationwithMySql\CrudApplicationwithMySql\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll

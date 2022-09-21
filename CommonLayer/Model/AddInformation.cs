@@ -17,7 +17,7 @@ namespace CrudApplicationwithMySql.CommonLayer.Model
         public string EmailID { get; set; }
 
         [Required]
-        [RegularExpression("\"([1-9]{1}[0-9]{9})$",ErrorMessage = "MobileNumber not correct format")]
+        [RegularExpression("([1-9]{1}[0-9]{9})$",ErrorMessage = "MobileNumber not correct format")]
         public string MobileNumber { get; set; }
 
         [Required]

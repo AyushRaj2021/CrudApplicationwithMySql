@@ -1,10 +1,9 @@
 ﻿using CrudApplicationwithMySql.Common_Utility;
 using CrudApplicationwithMySql.CommonLayer.Model;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MySqlConnector;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CrudApplicationwithMySql.RepositoryLayer
@@ -12,16 +11,19 @@ namespace CrudApplicationwithMySql.RepositoryLayer
     public class CrudApplicationRL : ICrudApplicationRL
     {
         public readonly IConfiguration _configuration;
+        public readonly ILogger<CrudApplicationRL> _logger;
         public readonly MySqlConnection _mySqlConnection;
-        public CrudApplicationRL(IConfiguration configuration)
+        public CrudApplicationRL(IConfiguration configuration, ILogger<CrudApplicationRL> logger)
         //dependancy injection of IConfiguration
         {
             _configuration = configuration;
+            _logger = logger;
             _mySqlConnection = new MySqlConnection(_configuration["ConnectionStrings:MySqlDBString"]);
         }
 
         public async Task<AddInformationResponse> AddInformation(AddInformationRequest request)
         {
+            _logger.LogInformation("AddInformation Method calling in Repository layer");
             AddInformationResponse response = new AddInformationResponse();
             response.IsSuccess = true;
             response.Message = "Successful";
@@ -46,16 +48,17 @@ namespace CrudApplicationwithMySql.RepositoryLayer
                     {
                         response.IsSuccess = false;
                         response.Message = "Query Not Executed";
+                        _logger.LogError("Query not executed");
                         return response;
                     }
 
                 }
-
             }
             catch(Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = ex.Message;
+                _logger.LogError($"error occurred at information repository layer {ex.Message}");
             }
             finally
             {

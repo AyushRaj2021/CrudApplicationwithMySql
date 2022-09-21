@@ -1,5 +1,6 @@
 ﻿using CrudApplicationwithMySql.CommonLayer.Model;
 using CrudApplicationwithMySql.RepositoryLayer;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,15 @@ namespace CrudApplicationwithMySql.ServiceLayer
     public class CrudApplicationSL : ICRudApplicationSL
     {
         public readonly ICrudApplicationRL _crudApplicationRL;
+        public readonly ILogger<CrudApplicationSL> _logger;
         public readonly string EmailRegex = @"^[0-9a-zA-Z]+([._+-][0-9a-zA-Z]+)*@[0-9a-zA-Z]+.[a-zA-Z]{2,4}([.][a-zA-Z]{2,3})?$";
         public readonly string MobileRegex = @"([1-9]{1}[0-9]{9})$";
         public readonly string GenderRegex = @"^(?:m|male|f|female)$";
 
-        public CrudApplicationSL(ICrudApplicationRL crudApplicationRL)
+        public CrudApplicationSL(ICrudApplicationRL crudApplicationRL, ILogger<CrudApplicationSL> logger)
         {
             _crudApplicationRL = crudApplicationRL;
+            _logger = logger;
         }
 
         public async Task<AddInformationResponse> AddInformation(AddInformationRequest request)
@@ -86,6 +89,7 @@ namespace CrudApplicationwithMySql.ServiceLayer
                 }
             }*/
             #endregion
+            _logger.LogInformation("AddInformation Method calling in Service Layer");
             return await _crudApplicationRL.AddInformation(request);
         }
     }
