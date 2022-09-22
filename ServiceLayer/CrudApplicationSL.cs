@@ -92,5 +92,11 @@ namespace CrudApplicationwithMySql.ServiceLayer
             _logger.LogInformation("AddInformation Method calling in Service Layer");
             return await _crudApplicationRL.AddInformation(request);
         }
+
+        public Task<ReadAllInformationResponse> ReadAllInformation()
+        {
+            _logger.LogInformation("ReadAllInformation Method calling in Service Layer");
+            return await _crudApplicationRL.ReadAllInformation(request);
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace CrudApplicationwithMySql.ServiceLayer
     public interface ICRudApplicationSL
     {
         public Task<AddInformationResponse> AddInformation(AddInformationRequest request);
+        public Task<ReadAllInformationResponse> ReadAllInformation();
     }
 }

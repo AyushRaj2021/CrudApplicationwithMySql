@@ -48,5 +48,31 @@ namespace CrudApplicationwithMySql.Controllers
             }
             return Ok(new { IsSuccess = response.IsSuccess, Message = response.Message });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ReadAllInformationAsync()
+        {
+            ReadAllInformationResponse response = new ReadAllInformationResponse();
+            _logger.LogInformation($"AddInformation API Calling in controller...");
+
+            try
+            {
+                response = await _crudApplicationSL.ReadAllInformation(request);
+
+                if (!response.IsSuccess)
+                {
+                    return BadRequest(new { IsSuccess = response.IsSuccess, Message = response.Message });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.Message;
+                _logger.LogError($"AddInformation API Error Occur : Message {ex.Message}");
+                return BadRequest(new { IsSuccess = response.IsSuccess, Message = response.Message });
+            }
+            return Ok(new { IsSuccess = response.IsSuccess, Message = response.Message });
+        }
     }
 }

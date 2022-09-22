@@ -9,5 +9,6 @@ namespace CrudApplicationwithMySql.RepositoryLayer
     public interface ICrudApplicationRL
     {
         public Task<AddInformationResponse> AddInformation(AddInformationRequest request);
+        public Task<ReadAllInformationResponse> ReadAllInformation();
     }
 }

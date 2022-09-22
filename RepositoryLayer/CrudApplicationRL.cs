@@ -67,5 +67,17 @@ namespace CrudApplicationwithMySql.RepositoryLayer
             }
             return response ;
         }
+
+        public Task<ReadAllInformationResponse> ReadAllInformation()
+        {
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+
+            }
+        }
     }
 }
