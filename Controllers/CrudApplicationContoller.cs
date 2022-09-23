@@ -69,7 +69,7 @@ namespace CrudApplicationwithMySql.Controllers
             {
                 response.IsSuccess = false;
                 response.Message = ex.Message;
-                _logger.LogError($"AddInformation API Error Occur : Message {ex.Message}");
+                _logger.LogError($"AddInformation API Error Occurs : Message {ex.Message}");
                 return BadRequest(new { IsSuccess = response.IsSuccess, Message = response.Message });
             }
             return Ok(new { IsSuccess = response.IsSuccess, Message = response.Message });
