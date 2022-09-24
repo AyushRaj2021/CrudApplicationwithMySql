@@ -6,5 +6,12 @@
 		
 		]]>
 	</AddInformation>
+	<ReadAllInformation>
+		<![CDATA[
+		     SELECT *
+			 FROM crudoperation.crudapplication
+			 WHERE IsActive=1;
+		]]>
+	</ReadAllInformation>
 	
 </Queries>

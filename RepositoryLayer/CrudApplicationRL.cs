@@ -2,8 +2,11 @@
 using CrudApplicationwithMySql.CommonLayer.Model;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 using MySqlConnector;
 using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace CrudApplicationwithMySql.RepositoryLayer
@@ -68,16 +71,76 @@ namespace CrudApplicationwithMySql.RepositoryLayer
             return response ;
         }
 
-        public Task<ReadAllInformationResponse> ReadAllInformation()
+        public async Task<ReadAllInformationResponse> ReadAllInformation()
         {
+            ReadAllInformationResponse response = new ReadAllInformationResponse();
+            response.IsSuccess = true;
+            response.Message = "Successful";
             try
             {
+                if (_mySqlConnection.State != System.Data.ConnectionState.Open)
+                {
+                    await _mySqlConnection.OpenAsync();
+                }
+                using (MySqlCommand sqlCommand = new MySqlCommand(SqlQueries.ReadAllInformation, _mySqlConnection))
+                {
+                    try
+                    {
+                        sqlCommand.CommandType = System.Data.CommandType.Text;
+                        sqlCommand.CommandTimeout = 180;
 
-            }
-            catch(Exception e)
+                        using (MySqlDataReader dataReader = await sqlCommand.ExecuteReaderAsync())
+                        {
+                            if (dataReader.HasRows)
+                            {
+                                response.readAllInformation = new List<GetReadAllInformation>();
+
+                                while (await dataReader.ReadAsync())
+                                {
+                                    GetReadAllInformation getdata = new GetReadAllInformation();
+                                    getdata.UserID = dataReader["UserId"] != DBNull.Value ? Convert.ToInt32(dataReader["UserId"]) : 0;
+                                    getdata.UserName = dataReader["UserName"] != DBNull.Value ? Convert.ToString(dataReader["UserName"]) : string.Empty;
+                                    getdata.EmailID = dataReader["EmailID"] != DBNull.Value ? Convert.ToString(dataReader["EmailId"]) : string.Empty;
+                                    getdata.Salary = dataReader["Salary"] != DBNull.Value ? Convert.ToInt32(dataReader["Salary"]) : 0;
+                                    getdata.MobileNumber = dataReader["MobileNumber"] != DBNull.Value ? Convert.ToString(dataReader["MobileNumber"]) : string.Empty;
+                                    getdata.Gender = dataReader["Gender"] != DBNull.Value ? Convert.ToString(dataReader["Gender"]) : string.Empty;
+                                    getdata.IsActive = dataReader["IsActive"] != DBNull.Value ? Convert.ToBoolean(dataReader["IsActive"]) : false;
+
+                                    response.readAllInformation.Add(getdata);
+                                }
+                            }
+                            else
+                            {
+                                response.IsSuccess = true;
+                                response.Message = "Record not found/ Database Empty";
+                            }
+
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        response.IsSuccess = false;
+                        response.Message = ex.Message;
+                        _logger.LogError("GetAllInformation Error Occur : Message : " + ex.Message);
+                    }
+                    finally
+                    {
+                        await sqlCommand.DisposeAsync();
+                    }
+                }
+            }catch(Exception ex)
             {
-
+                response.IsSuccess = false;
+                response.Message = ex.Message;
+                _logger.LogError("GetAllInformation Error Occur : Message : " + ex.Message);
             }
+            finally
+            {
+                await _mySqlConnection.CloseAsync();
+                await _mySqlConnection.DisposeAsync();
+            }
+            return response;
         }
     }
 }

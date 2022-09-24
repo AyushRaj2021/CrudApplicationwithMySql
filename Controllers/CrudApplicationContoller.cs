@@ -49,15 +49,15 @@ namespace CrudApplicationwithMySql.Controllers
             return Ok(new { IsSuccess = response.IsSuccess, Message = response.Message });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> ReadAllInformationAsync()
+        [HttpGet]
+        public async Task<IActionResult> ReadAllInformation()
         {
             ReadAllInformationResponse response = new ReadAllInformationResponse();
             _logger.LogInformation($"AddInformation API Calling in controller...");
 
             try
             {
-                response = await _crudApplicationSL.ReadAllInformation(request);
+                response = await _crudApplicationSL.ReadAllInformation();
 
                 if (!response.IsSuccess)
                 {
