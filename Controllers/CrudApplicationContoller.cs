@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CrudApplicationwithMySql.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
     public class CrudApplicationContoller : ControllerBase
     {
@@ -61,6 +61,33 @@ namespace CrudApplicationwithMySql.Controllers
 
                 if (!response.IsSuccess)
                 {
+                    return BadRequest(new { IsSuccess = response.IsSuccess, Message = response.Message ,Data = response.readAllInformation });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.Message;
+                _logger.LogError($"ReadAllInformation API Error Occurs : Message {ex.Message}");
+                return BadRequest(new { IsSuccess = response.IsSuccess, Message = response.Message });
+            }
+            return Ok(new { IsSuccess = response.IsSuccess, Message = response.Message , Data = response.readAllInformation });
+        }
+
+
+        [HttpPut]
+        public async Task<IActionResult>UpdateAllInformationById(UpdateAllInformationById request)
+        {
+            AddInformationResponse response = new AddInformationResponse();
+            _logger.LogInformation($"AddInformation API Calling in controller...{JsonConvert.SerializeObject(request)}");
+
+            try
+            {
+                response = await _crudApplicationSL.AddInformation(request);
+
+                if (!response.IsSuccess)
+                {
                     return BadRequest(new { IsSuccess = response.IsSuccess, Message = response.Message });
                 }
 
@@ -69,10 +96,11 @@ namespace CrudApplicationwithMySql.Controllers
             {
                 response.IsSuccess = false;
                 response.Message = ex.Message;
-                _logger.LogError($"AddInformation API Error Occurs : Message {ex.Message}");
+                _logger.LogError($"AddInformation API Error Occur : Message {ex.Message}");
                 return BadRequest(new { IsSuccess = response.IsSuccess, Message = response.Message });
             }
             return Ok(new { IsSuccess = response.IsSuccess, Message = response.Message });
         }
+
     }
 }
