@@ -93,10 +93,36 @@ namespace CrudApplicationwithMySql.ServiceLayer
             return await _crudApplicationRL.AddInformation(request);
         }
 
+        public Task<DeleteAllInActiveInformationResponse> DeleteAllInActiveInformation()
+        {
+            _logger.LogInformation("DeleteAllInActiveInformation Method calling in Service Layer");
+            return await _crudApplicationRL.GetDeleteAllInformation();
+        }
+
+        public async Task<DeleteInformationByIdResponse> DeleteInformationById(DeleteInformationByIdRequest request)
+        {
+            _logger.LogInformation("DeleteInformationById Method calling in Service Layer");
+            return await _crudApplicationRL.DeleteInformationById(request);
+        }
+
+        public async  Task<GetDeleteAllInformationResponse> GetDeleteAllInformation()
+        {
+            _logger.LogInformation("GetDeleteAllInformation Method calling in Service Layer");
+            return await _crudApplicationRL.GetDeleteAllInformation();
+        }
+
         public async Task<ReadAllInformationResponse> ReadAllInformation()
         {
             _logger.LogInformation("ReadAllInformation Method calling in Service Layer");
             return await _crudApplicationRL.ReadAllInformation();
         }
+
+        public async Task<UpdateAllInformationByIdResponse> UpdateAllInformationById(UpdateAllInformationByIdRequest request)
+        {
+            _logger.LogInformation("UpdateAllInformationById Method calling in Service Layer");
+            return await _crudApplicationRL.UpdateAllInformationById(request);
+        }
+
+       
     }
 }

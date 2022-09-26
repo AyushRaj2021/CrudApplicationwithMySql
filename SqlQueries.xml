@@ -13,5 +13,31 @@
 			 WHERE IsActive=1;
 		]]>
 	</ReadAllInformation>
+	<UpdateAllInformationById>
+	<![CDATA[
+		UPDATE crudoperation.crudapplication
+		SET UserName=@UserName,
+			EmailID=@EmailID,
+			MobileNumber=@MobileNumber,
+			Salary=@Salary,
+			Gender=@Gender
+		WHERE UserID=@UserID  ;
+	]]>	
+	</UpdateAllInformationById>
+	<DeleteInformationById>
+		<![CDATA[
+		UPDATE crudoperation.crudapplication
+		SET IsActive=0
+		WHERE UserID=@UserId
+		]]>
+	</DeleteInformationById>
+	<GetDeleteAllInformation>
+		<![CDATA[
+		SELECT *
+		FROM crudoperation.crudapplication
+		WHERE IsActive=0;
+		]]>
+	</GetDeleteAllInformation>
+
 	
 </Queries>
