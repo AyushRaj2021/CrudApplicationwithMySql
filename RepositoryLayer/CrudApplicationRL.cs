@@ -89,7 +89,6 @@ namespace CrudApplicationwithMySql.RepositoryLayer
                         sqlCommand.CommandType = System.Data.CommandType.Text;
                         //we are getting text type from SqlQueries.xml
                         sqlCommand.CommandTimeout = 180;
-                        sqlCommand.Parameters.AddWithValue("@UserID", request.UserID);
                         int Status = await sqlCommand.ExecuteNonQueryAsync();
                         if (Status <= 0)
                         {
@@ -105,7 +104,7 @@ namespace CrudApplicationwithMySql.RepositoryLayer
                 {
                     response.IsSuccess = false;
                     response.Message = ex.Message;
-                    _logger.LogError($"error occurred at DeleteInformationById repository layer {ex.Message}");
+                    _logger.LogError($"error occurred at DeleteAllInActiveInformation repository layer {ex.Message}");
                 }
                 finally
                 {
@@ -291,6 +290,80 @@ namespace CrudApplicationwithMySql.RepositoryLayer
                     }
                 }
             }catch(Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.Message;
+                _logger.LogError("GetAllInformation Error Occur : Message : " + ex.Message);
+            }
+            finally
+            {
+                await _mySqlConnection.CloseAsync();
+                await _mySqlConnection.DisposeAsync();
+            }
+            return response;
+        }
+
+        public async Task<ReadInformationByIdResponse> ReadInformationById(ReadInformationByIdRequest request)
+        {
+            ReadInformationByIdResponse response = new ReadInformationByIdResponse();
+            response.IsSuccess = true;
+            response.Message = "Successful";
+            try
+            {
+                if (_mySqlConnection.State != System.Data.ConnectionState.Open)
+                {
+                    await _mySqlConnection.OpenAsync();
+                }
+                using (MySqlCommand sqlCommand = new MySqlCommand(SqlQueries.ReadInformationById, _mySqlConnection))
+                {
+                    try
+                    {
+                        sqlCommand.CommandType = System.Data.CommandType.Text;
+                        sqlCommand.CommandTimeout = 180;
+                        sqlCommand.Parameters.AddWithValue("UserID",request.UserID);
+
+                        using (MySqlDataReader dataReader = await sqlCommand.ExecuteReaderAsync())
+                        {
+                            if (dataReader.HasRows)
+                            {
+                                response.readAllInformation = new List<GetReadAllInformation>();
+
+                                while (await dataReader.ReadAsync())
+                                {
+                                    GetReadAllInformation getdata = new GetReadAllInformation();
+                                    getdata.UserID = dataReader["UserId"] != DBNull.Value ? Convert.ToInt32(dataReader["UserId"]) : 0;
+                                    getdata.UserName = dataReader["UserName"] != DBNull.Value ? Convert.ToString(dataReader["UserName"]) : string.Empty;
+                                    getdata.EmailID = dataReader["EmailID"] != DBNull.Value ? Convert.ToString(dataReader["EmailId"]) : string.Empty;
+                                    getdata.Salary = dataReader["Salary"] != DBNull.Value ? Convert.ToInt32(dataReader["Salary"]) : 0;
+                                    getdata.MobileNumber = dataReader["MobileNumber"] != DBNull.Value ? Convert.ToString(dataReader["MobileNumber"]) : string.Empty;
+                                    getdata.Gender = dataReader["Gender"] != DBNull.Value ? Convert.ToString(dataReader["Gender"]) : string.Empty;
+                                    getdata.IsActive = dataReader["IsActive"] != DBNull.Value ? Convert.ToBoolean(dataReader["IsActive"]) : false;
+
+                                    response.readAllInformation.Add(getdata);
+                                }
+                            }
+                            else
+                            {
+                                response.IsSuccess = true;
+                                response.Message = "Record not found/ Database Empty";
+                            }
+
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        response.IsSuccess = false;
+                        response.Message = ex.Message;
+                        _logger.LogError("GetAllInformation Error Occur : Message : " + ex.Message);
+                    }
+                    finally
+                    {
+                        await sqlCommand.DisposeAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = ex.Message;

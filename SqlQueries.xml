@@ -26,18 +26,32 @@
 	</UpdateAllInformationById>
 	<DeleteInformationById>
 		<![CDATA[
-		UPDATE crudoperation.crudapplication
-		SET IsActive=0
-		WHERE UserID=@UserId
+			UPDATE crudoperation.crudapplication
+			SET IsActive=0
+			WHERE UserID=@UserId
 		]]>
 	</DeleteInformationById>
 	<GetDeleteAllInformation>
 		<![CDATA[
-		SELECT *
-		FROM crudoperation.crudapplication
-		WHERE IsActive=0;
+			SELECT *
+			FROM crudoperation.crudapplication
+			WHERE IsActive=0;
 		]]>
 	</GetDeleteAllInformation>
+	<DeleteAllInActiveInformation>
+		<![CDATA[
+			DELETE
+			FROM crudoperation.crudapplication
+			WHERE IsActive=0;
+		]]>
+	</DeleteAllInActiveInformation>
+	<ReadInformationById>
+		<![CDATA[
+			SELECT *
+			FROM crudoperation.crudapplication
+			WHERE UserID=@UserID AND IsActive=1;
+		]]>
+	</ReadInformationById>
 
 	
 </Queries>
