@@ -183,5 +183,32 @@ namespace CrudApplicationwithMySql.Controllers
             }
             return Ok(new { IsSuccess = response.IsSuccess, Message = response.Message });
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ReadInformationById(ReadInformationById request)
+        {
+            AddInformationResponse response = new AddInformationResponse();
+            _logger.LogInformation($"ReadInformationById API Calling in controller...{JsonConvert.SerializeObject(request)}");
+
+            try
+            {
+                response = await _crudApplicationSL.ReadInformationById(request);
+
+                if (!response.IsSuccess)
+                {
+                    return BadRequest(new { IsSuccess = response.IsSuccess, Message = response.Message });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.Message;
+                _logger.LogError($"ReadInformationById API Error Occur : Message {ex.Message}");
+                return BadRequest(new { IsSuccess = response.IsSuccess, Message = response.Message });
+            }
+            return Ok(new { IsSuccess = response.IsSuccess, Message = response.Message });
+        }
     }
 }
