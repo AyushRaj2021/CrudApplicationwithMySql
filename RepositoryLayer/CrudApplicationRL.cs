@@ -326,26 +326,23 @@ namespace CrudApplicationwithMySql.RepositoryLayer
                         {
                             if (dataReader.HasRows)
                             {
-                                response.readAllInformation = new List<GetReadAllInformation>();
+                                response.Data = new ReadInformationById();
 
-                                while (await dataReader.ReadAsync())
+                                if (await dataReader.ReadAsync())
                                 {
-                                    GetReadAllInformation getdata = new GetReadAllInformation();
-                                    getdata.UserID = dataReader["UserId"] != DBNull.Value ? Convert.ToInt32(dataReader["UserId"]) : 0;
-                                    getdata.UserName = dataReader["UserName"] != DBNull.Value ? Convert.ToString(dataReader["UserName"]) : string.Empty;
-                                    getdata.EmailID = dataReader["EmailID"] != DBNull.Value ? Convert.ToString(dataReader["EmailId"]) : string.Empty;
-                                    getdata.Salary = dataReader["Salary"] != DBNull.Value ? Convert.ToInt32(dataReader["Salary"]) : 0;
-                                    getdata.MobileNumber = dataReader["MobileNumber"] != DBNull.Value ? Convert.ToString(dataReader["MobileNumber"]) : string.Empty;
-                                    getdata.Gender = dataReader["Gender"] != DBNull.Value ? Convert.ToString(dataReader["Gender"]) : string.Empty;
-                                    getdata.IsActive = dataReader["IsActive"] != DBNull.Value ? Convert.ToBoolean(dataReader["IsActive"]) : false;
-
-                                    response.readAllInformation.Add(getdata);
+                                    response.Data.UserID = dataReader["UserId"] != DBNull.Value ? Convert.ToInt32(dataReader["UserId"]) : 0;
+                                    response.Data.UserName = dataReader["UserName"] != DBNull.Value ? Convert.ToString(dataReader["UserName"]) : string.Empty;
+                                    response.Data.EmailID = dataReader["EmailID"] != DBNull.Value ? Convert.ToString(dataReader["EmailId"]) : string.Empty;
+                                    response.Data.Salary = dataReader["Salary"] != DBNull.Value ? Convert.ToInt32(dataReader["Salary"]) : 0;
+                                    response.Data.MobileNumber = dataReader["MobileNumber"] != DBNull.Value ? Convert.ToString(dataReader["MobileNumber"]) : string.Empty;
+                                    response.Data.Gender = dataReader["Gender"] != DBNull.Value ? Convert.ToString(dataReader["Gender"]) : string.Empty;
+                                    response.Data.IsActive = dataReader["IsActive"] != DBNull.Value ? Convert.ToBoolean(dataReader["IsActive"]) : false;
                                 }
                             }
                             else
                             {
                                 response.IsSuccess = true;
-                                response.Message = "Record not found/ Database Empty";
+                                response.Message = "Record not found";
                             }
 
                         }
@@ -355,7 +352,7 @@ namespace CrudApplicationwithMySql.RepositoryLayer
                     {
                         response.IsSuccess = false;
                         response.Message = ex.Message;
-                        _logger.LogError("GetAllInformation Error Occur : Message : " + ex.Message);
+                        _logger.LogError("ReadInformationById Error Occur : Message : " + ex.Message);
                     }
                     finally
                     {
@@ -367,7 +364,7 @@ namespace CrudApplicationwithMySql.RepositoryLayer
             {
                 response.IsSuccess = false;
                 response.Message = ex.Message;
-                _logger.LogError("GetAllInformation Error Occur : Message : " + ex.Message);
+                _logger.LogError("ReadInformationById Error Occur : Message : " + ex.Message);
             }
             finally
             {
@@ -416,6 +413,50 @@ namespace CrudApplicationwithMySql.RepositoryLayer
                 response.IsSuccess = false;
                 response.Message = ex.Message;
                 _logger.LogError($"error occurred at UpdateAllInformationById repository layer {ex.Message}");
+            }
+            finally
+            {
+                await _mySqlConnection.CloseAsync();
+                await _mySqlConnection.DisposeAsync();
+            }
+            return response;
+        }
+
+        public async Task<UpdateOneInformationByIdResponse> UpdateOneInformationById(UpdateOneInformationByIdRequest request)
+        {
+            _logger.LogInformation("UpdateOneInformationById Method calling in Repository layer");
+            UpdateOneInformationByIdResponse response = new UpdateOneInformationByIdResponse();
+            response.IsSuccess = true;
+            response.Message = "Successful";
+            try
+            {
+                if (_mySqlConnection.State != System.Data.ConnectionState.Open)
+                {
+                    await _mySqlConnection.OpenAsync();
+                }
+                using (MySqlCommand sqlCommand = new MySqlCommand(SqlQueries.UpdateOneInformationById, _mySqlConnection))
+                {
+                    sqlCommand.CommandType = System.Data.CommandType.Text;
+                    //we are getting text type from SqlQueries.xml
+                    sqlCommand.CommandTimeout = 180;
+                    sqlCommand.Parameters.AddWithValue("@UserID", request.UserId);
+                    sqlCommand.Parameters.AddWithValue("@Salary", request.Salary);
+                    int Status = await sqlCommand.ExecuteNonQueryAsync();
+                    if (Status <= 0)
+                    {
+                        response.IsSuccess = false;
+                        response.Message = "Query Not Executed";
+                        _logger.LogError("Query not executed");
+                        return response;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.Message;
+                _logger.LogError($"error occurred at UpdateOneInformationById repository layer {ex.Message}");
             }
             finally
             {

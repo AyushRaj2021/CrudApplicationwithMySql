@@ -15,5 +15,6 @@ namespace CrudApplicationwithMySql.RepositoryLayer
         public Task<GetDeleteAllInformationResponse> GetDeleteAllInformation();
         public Task<DeleteAllInActiveInformationResponse> DeleteAllInActiveInformation();
         public Task<ReadInformationByIdResponse> ReadInformationById(ReadInformationByIdRequest request);
+        public Task<UpdateOneInformationByIdResponse> UpdateOneInformationById(UpdateOneInformationByIdRequest request);
     }
 }

@@ -129,6 +129,10 @@ namespace CrudApplicationwithMySql.ServiceLayer
             return await _crudApplicationRL.UpdateAllInformationById(request);
         }
 
-       
+        public async Task<UpdateOneInformationByIdResponse> UpdateOneInformationById(UpdateOneInformationByIdRequest request)
+        {
+            _logger.LogInformation("UpdateOneInformationById Method calling in Service Layer");
+            return await _crudApplicationRL.UpdateOneInformationById(request);
+        }
     }
 }
