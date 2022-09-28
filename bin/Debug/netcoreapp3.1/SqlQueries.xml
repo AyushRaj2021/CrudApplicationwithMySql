@@ -2,7 +2,7 @@
 <Queries>
 	<AddInformation>
 		<![CDATA[
-		INSERT INTO crudoperation.crudapplication(UserName, EmailID, MobileNumber, Salary, Gender) Values (@UserName, @EmailID, @MobileNumber, @Salary, @Gender);
+			INSERT INTO crudoperation.crudapplication(UserName, EmailID, MobileNumber, Salary, Gender) Values (@UserName, @EmailID, @MobileNumber, @Salary, @Gender);
 		
 		]]>
 	</AddInformation>
@@ -15,27 +15,27 @@
 	</ReadAllInformation>
 	<UpdateAllInformationById>
 	<![CDATA[
-		UPDATE crudoperation.crudapplication
-		SET UserName=@UserName,
-			EmailID=@EmailID,
-			MobileNumber=@MobileNumber,
-			Salary=@Salary,
-			Gender=@Gender
-		WHERE UserID=@UserID  ;
+			UPDATE crudoperation.crudapplication
+			SET UserName=@UserName,
+				EmailID=@EmailID,
+				MobileNumber=@MobileNumber,
+				Salary=@Salary,
+				Gender=@Gender
+			WHERE UserID=@UserID  ;
 	]]>	
 	</UpdateAllInformationById>
 	<DeleteInformationById>
 		<![CDATA[
-		UPDATE crudoperation.crudapplication
-		SET IsActive=0
-		WHERE UserID=@UserId
+			UPDATE crudoperation.crudapplication
+			SET IsActive=0
+			WHERE UserID=@UserId
 		]]>
 	</DeleteInformationById>
 	<GetDeleteAllInformation>
 		<![CDATA[
-		SELECT *
-		FROM crudoperation.crudapplication
-		WHERE IsActive=0;
+			SELECT *
+			FROM crudoperation.crudapplication
+			WHERE IsActive=0;
 		]]>
 	</GetDeleteAllInformation>
 	<DeleteAllInActiveInformation>
@@ -45,6 +45,20 @@
 			WHERE IsActive=0;
 		]]>
 	</DeleteAllInActiveInformation>
+	<ReadInformationById>
+		<![CDATA[
+			SELECT *
+			FROM crudoperation.crudapplication
+			WHERE UserID=@UserID AND IsActive=1;
+		]]>
+	</ReadInformationById>
+	<UpdateOneInformationById>
+		<![CDATA[
+			UPDATE crudoperation.crudapplication
+			SET Salary=@Salary
+			WHERE UserID=@UserID;
+		]]>
+	</UpdateOneInformationById>
 
 	
 </Queries>

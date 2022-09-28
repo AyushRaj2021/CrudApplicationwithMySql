@@ -17,6 +17,7 @@ namespace CrudApplicationwithMySql.Common_Utility
         public static string GetDeleteAllInformation { get { return _configuration["GetDeleteAllInformation"]; } }
         public static string DeleteAllInActiveInformation { get { return _configuration["DeleteAllInActiveInformation"]; } }
         public static string ReadInformationById { get { return _configuration["ReadInformationById"]; } }
+        public static string UpdateOneInformationById { get { return _configuration["UpdateOneInformationById"]; } }
 
     }
 }
