@@ -11,13 +11,13 @@ namespace CrudApplicationwithMySql.Controllers
 {
     [Route("api/[controller]/[Action]")]
     [ApiController]
-    public class CrudApplicationContoller : ControllerBase
+    public class CrudApplicationController : ControllerBase
     {
 
         public readonly ICRudApplicationSL _crudApplicationSL;
-        public readonly ILogger<CrudApplicationContoller> _logger;
+        public readonly ILogger<CrudApplicationController> _logger;
 
-        public CrudApplicationContoller(ICRudApplicationSL crudApplicationSL, ILogger<CrudApplicationContoller> logger)
+        public CrudApplicationController(ICRudApplicationSL crudApplicationSL, ILogger<CrudApplicationController> logger)
         {
             _crudApplicationSL = crudApplicationSL;
             _logger = logger;
