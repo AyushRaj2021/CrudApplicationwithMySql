@@ -93,6 +93,7 @@ namespace CrudApplicationwithMySql.ServiceLayer
             _logger.LogInformation("AddInformation Method calling in Service Layer");
             return await _crudApplicationRL.AddInformation(request);
         }
+        //end
 
         public async Task<DeleteAllInActiveInformationResponse> DeleteAllInActiveInformation()
         {
